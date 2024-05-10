@@ -16,11 +16,12 @@ checkq:
 	bash testdiff.sh $(QUADE_DIR)/testq.expected $(QUADE_DIR)/testq.result
 #Тестирование модуля sqrt
 checkS:
+	echo "Testing sqrt"
 	$(SQRT_DIR)/testS 64 > $(SQRT_DIR)/testS.result
 	$(SQRT_DIR)/testS 128 >> $(SQRT_DIR)/testS.result
 	$(SQRT_DIR)/testS 939 >> $(SQRT_DIR)/testS.result
 	bash testdiff.sh $(SQRT_DIR)/testS.expected $(SQRT_DIR)/testS.result
-#Тестирует все модули
+#Компилирует и тестирует все модули
 check: compile_modules checkq checkS
 	echo "Check complete"
 #Очищает избыточные файлы

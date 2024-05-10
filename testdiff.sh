@@ -2,7 +2,7 @@
 result=$(diff $1 $2)
 
 #Отделяем новый блок вывода в лог файле
-echo ============New test============ >> testdiff.log
+echo ============New difftest============ >> testdiff.log
 
 date >> testdiff.log	#Записываем дату в лог файл
 echo Testing difference between $1 and $2 | tee -a testdiff.log
