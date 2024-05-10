@@ -1,5 +1,4 @@
-//#include <math.h>
-#include "sqrt.h"
+#include "../sqrt/sqrt.h"
 //Структура для двух корней уравнения
 struct solution {
 	float x1;

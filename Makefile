@@ -1,21 +1,32 @@
-testq: modules/quadratic_equation.c modules/sqrt.c testq.c
-	gcc testq.c modules/quadratic_equation.c modules/sqrt.c -o testq
-check: modules/quadratic_equation.c modules/sqrt.c testq.c
-	gcc testq.c modules/quadratic_equation.c modules/sqrt.c -o testq
-	echo "Testing for 2 roots" > tests.out
-	echo "Expected:" >> tests.out
-	echo "x1: -0.142857\nx2: 0.500000" >> tests.out
-	echo "Result:" >> tests.out
-	./test 14 -5 -1 >> tests.out
-	echo "Testing for 1 root" >> tests.out
-	echo "Expected:" >> tests.out
-	echo "x1: 1.666667\nx2: 1.666667" >> tests.out
-	echo "Result:" >> tests.out
-	./test 9 -30 25 >> tests.out
-	echo "Testing for no solutions" >> tests.out
-	echo "Expected:" >> tests.out
-	echo "No real solutions" >> tests.out
-	echo "Result:" >> tests.out
-	./test 2 1 67 >> tests.out
+#Переменные для директорий
+QUADE_DIR = modules/quadratic_equation
+SQRT_DIR = modules/sqrt
+
+#Компилирует тестовые программы модулей
+compile_modules:
+	echo "Compiling tests"
+	make -C $(QUADE_DIR) testq
+	make -C $(SQRT_DIR) testS
+#Тестирование модуля quadratic_equation
+checkq:
+	echo "Testing quadratic_equation"
+	$(QUADE_DIR)/testq 14 -5 -1 > $(QUADE_DIR)/testq.result
+	$(QUADE_DIR)/testq 9 -30 25 >> $(QUADE_DIR)/testq.result
+	$(QUADE_DIR)/testq 2 1 67 >> $(QUADE_DIR)/testq.result
+	bash testdiff.sh $(QUADE_DIR)/testq.expected $(QUADE_DIR)/testq.result
+#Тестирование модуля sqrt
+checkS:
+	$(SQRT_DIR)/testS 64 > $(SQRT_DIR)/testS.result
+	$(SQRT_DIR)/testS 128 >> $(SQRT_DIR)/testS.result
+	$(SQRT_DIR)/testS 939 >> $(SQRT_DIR)/testS.result
+	bash testdiff.sh $(SQRT_DIR)/testS.expected $(SQRT_DIR)/testS.result
+#Тестирует все модули
+check: compile_modules checkq checkS
+	echo "Check complete"
+#Очищает избыточные файлы
 clean:
-	rm tests.out
+	rm -f testdiff.log
+	rm -f $(QUADE_DIR)/testq.result
+	rm -f $(SQRT_DIR)/testS.result
+	rm -f $(QUADE_DIR)/testq
+	rm -f $(SQRT_DIR)/testS
