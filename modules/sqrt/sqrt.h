@@ -1,2 +1,2 @@
 //Функция для вычисления квадратного корня
-float sqrt(float);
+float bsqrt(float);

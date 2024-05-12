@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
 	//Находим корень из числа a
 	float root;
-	root = sqrt(a);
+	root = bsqrt(a);
 
 	//Вывод
 	printf("root:%f\n", root);

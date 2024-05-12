@@ -9,8 +9,8 @@ struct solution solve_equation(float a, float b, float c) {
 	//Если дискриминант больше 0 находим два корня
 	if (d > 0)
 	{
-		solved.x1 = (-b - sqrt(d)) / (2 * a);
-		solved.x2 = (-b + sqrt(d)) / (2 * a);
+		solved.x1 = (-b - bsqrt(d)) / (2 * a);
+		solved.x2 = (-b + bsqrt(d)) / (2 * a);
 		solved.exists = 1;
 	}
 	//Если дискриминант равен 0 находим один корень и заполняем структуру этим корнем
