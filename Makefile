@@ -5,8 +5,8 @@ SQRT_DIR = modules/sqrt
 #Компилирует тестовые программы модулей
 compile_modules:
 	echo "Compiling tests"
-	make -C $(QUADE_DIR) testq
-	make -C $(SQRT_DIR) testS
+	make -C $(QUADE_DIR) all
+	make -C $(SQRT_DIR) all
 #Тестирование модуля quadratic_equation
 checkq:
 	echo "Testing quadratic_equation"
@@ -22,7 +22,7 @@ checkS:
 	$(SQRT_DIR)/testS 939 >> $(SQRT_DIR)/testS.result
 	bash testdiff.sh $(SQRT_DIR)/testS.expected $(SQRT_DIR)/testS.result
 #Компилирует и тестирует все модули
-check: compile_modules checkq checkS
+check: checkq checkS
 	echo "Check complete"
 #Очищает избыточные файлы
 clean:
@@ -31,3 +31,5 @@ clean:
 	rm -f $(SQRT_DIR)/testS.result
 	rm -f $(QUADE_DIR)/testq
 	rm -f $(SQRT_DIR)/testS
+	rm -f $(QUADE_DIR)/*.o
+	rm -f $(SQRT_DIR)/*.o
